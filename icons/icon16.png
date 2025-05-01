@@ -1,0 +1,11 @@
+<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景圆 -->
+  <circle cx="8" cy="8" r="7.5" fill="#4285F4" stroke="#3367D6" stroke-width="0.5"/>
+  
+  <!-- URL符号 - 链接图标 -->
+  <path d="M10.5,5.5 L9,7 C9.8,7.8 9.8,9.2 9,10 L7.5,11.5 C6.7,12.3 5.3,12.3 4.5,11.5 C3.7,10.7 3.7,9.3 4.5,8.5 L5.5,7.5" 
+        stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  
+  <path d="M5.5,10.5 L7,9 C6.2,8.2 6.2,6.8 7,6 L8.5,4.5 C9.3,3.7 10.7,3.7 11.5,4.5 C12.3,5.3 12.3,6.7 11.5,7.5 L10.5,8.5" 
+        stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+</svg>

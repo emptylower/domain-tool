@@ -1,0 +1,28 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- 渐变背景 -->
+  <defs>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5B9BF7"/>
+      <stop offset="100%" stop-color="#3367D6"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景圆 -->
+  <circle cx="64" cy="64" r="60" fill="url(#blueGradient)" stroke="#3367D6" stroke-width="2"/>
+  
+  <!-- 光晕效果 -->
+  <circle cx="42" cy="42" r="28" fill="white" fill-opacity="0.15"/>
+  
+  <!-- URL符号 - 链接图标 -->
+  <path d="M84,44 L72,56 C78.5,62.5 78.5,73.5 72,80 L60,92 C53.5,98.5 42.5,98.5 36,92 C29.5,85.5 29.5,74.5 36,68 L44,60" 
+        stroke="white" stroke-width="8" fill="none" stroke-linecap="round"/>
+  
+  <path d="M44,84 L56,72 C49.5,65.5 49.5,54.5 56,48 L68,36 C74.5,29.5 85.5,29.5 92,36 C98.5,42.5 98.5,53.5 92,60 L84,68" 
+        stroke="white" stroke-width="8" fill="none" stroke-linecap="round"/>
+  
+  <!-- 高光 -->
+  <circle cx="38" cy="38" r="6" fill="white" fill-opacity="0.6"/>
+  
+  <!-- 阴影 -->
+  <circle cx="64" cy="64" r="58" fill="none" stroke="black" stroke-width="3" stroke-opacity="0.1" />
+</svg>

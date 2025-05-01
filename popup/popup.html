@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>域名识别与管理工具</title>
+  <style>
+    body {
+      width: 300px;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #4285f4;
+      color: white;
+      padding: 10px 15px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 16px;
+      margin: 0;
+    }
+    .content {
+      padding: 15px;
+    }
+    .btn {
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .btn:hover {
+      background-color: #3367d6;
+    }
+    .domain-count {
+      margin: 15px 0;
+      text-align: center;
+      font-size: 14px;
+    }
+    .domain-count strong {
+      color: #4285f4;
+    }
+    .links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      font-size: 12px;
+    }
+    .links a {
+      color: #4285f4;
+      text-decoration: none;
+    }
+    .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>域名识别与管理工具</h1>
+  </header>
+  <div class="content">
+    <button id="scanButton" class="btn">扫描当前页面域名</button>
+    <button id="togglePanelButton" class="btn">显示/隐藏域名面板</button>
+    <div id="domainCount" class="domain-count">
+      当前页面共发现 <strong>0</strong> 个域名
+    </div>
+    <div class="links">
+      <a href="#" id="optionsLink">设置</a>
+      <a href="#" id="savedDomainsLink">已保存域名</a>
+      <a href="#" id="helpLink">帮助</a>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html> 

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>域名识别与管理工具 - 设置</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    header {
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: #4285f4;
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 20px;
+    }
+    .tab {
+      padding: 10px 15px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+    .tab.active {
+      border-bottom-color: #4285f4;
+      color: #4285f4;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    button {
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 15px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover {
+      background-color: #3367d6;
+    }
+    .domain-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    .domain-item {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+    }
+    .domain-item:hover {
+      background-color: #f9f9f9;
+    }
+    .domain-item-actions {
+      margin-left: auto;
+    }
+    .domain-item-actions button {
+      margin-left: 5px;
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+    .import-export {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+    .success-message, .error-message {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+    }
+    .success-message {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .error-message {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    /* 分类管理样式 */
+    .collection-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    .collection-item {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+    }
+    .collection-item:hover {
+      background-color: #f5f5f5;
+    }
+    .collection-info {
+      flex: 1;
+    }
+    .collection-name {
+      font-weight: bold;
+      margin-bottom: 3px;
+    }
+    .collection-description {
+      font-size: 12px;
+      color: #666;
+    }
+    .collection-count {
+      background-color: #f0f0f0;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      margin-right: 10px;
+    }
+    .collection-actions button {
+      margin-left: 5px;
+    }
+    .add-collection-form {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+    }
+    .edit-collection-form {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-radius: 4px;
+    }
+    /* 流量查询相关样式 */
+    .traffic-query-section {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #f5f5f5;
+      border-radius: 4px;
+    }
+    
+    .traffic-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      background-color: #4285f4;
+      color: white;
+    }
+    
+    .traffic-loading {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      border-left-color: #4285f4;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>域名识别与管理工具</h1>
+      <p>配置和管理您的域名收集</p>
+    </header>
+    
+    <div class="tabs">
+      <div class="tab active" data-tab="general">常规设置</div>
+      <div class="tab" data-tab="collections">分类管理</div>
+      <div class="tab" data-tab="domains">域名管理</div>
+      <div class="tab" data-tab="filter">过滤清单</div>
+      <div class="tab" data-tab="import-export">导入/导出</div>
+      <div class="tab" data-tab="api-settings">API设置</div>
+    </div>
+    
+    <div class="tab-content active" id="general">
+      <h2>常规设置</h2>
+      <div class="form-group">
+        <label for="scanAutoStart">页面加载自动扫描</label>
+        <input type="checkbox" id="scanAutoStart">
+      </div>
+      <div class="form-group">
+        <label for="panelPosition">面板位置</label>
+        <select id="panelPosition">
+          <option value="right">右侧</option>
+          <option value="left">左侧</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="itemsPerPage">每页显示域名数量</label>
+        <input type="number" id="itemsPerPage" min="5" max="50" value="20">
+      </div>
+      <button id="saveSettings">保存设置</button>
+    </div>
+    
+    <div class="tab-content" id="collections">
+      <h2>分类管理</h2>
+      <p>创建和管理域名分类，便于更好地组织您保存的域名</p>
+      
+      <ul class="collection-list" id="collectionsList">
+        <!-- 分类列表会通过JS动态生成 -->
+        <li class="collection-item">
+          <div class="collection-info">
+            <div class="collection-name">加载中...</div>
+          </div>
+        </li>
+      </ul>
+      
+      <div class="add-collection-form">
+        <h3>添加新分类</h3>
+        <div class="form-group">
+          <label for="newCollectionName">分类名称</label>
+          <input type="text" id="newCollectionName" placeholder="输入分类名称">
+        </div>
+        <div class="form-group">
+          <label for="newCollectionDescription">分类描述 (可选)</label>
+          <input type="text" id="newCollectionDescription" placeholder="输入分类描述">
+        </div>
+        <button id="addCollectionBtn">添加分类</button>
+      </div>
+    </div>
+    
+    <div class="tab-content" id="domains">
+      <h2>域名管理</h2>
+      
+      <div class="collection-selector">
+        <label for="domainCollectionSelect">选择分类：</label>
+        <select id="domainCollectionSelect" style="margin-bottom: 15px; padding: 8px; width: 100%;">
+          <option value="">加载中...</option>
+        </select>
+      </div>
+      
+      <div class="domain-management-area" style="display: none;">
+        <div class="form-group">
+          <label for="filterDomains">过滤域名</label>
+          <input type="text" id="filterDomains" placeholder="输入关键字过滤...">
+        </div>
+        
+        <div class="domain-stats" style="margin-bottom: 10px; color: #666;">
+          <span id="domainCount">0</span> 个域名
+          <div class="domain-selection-controls" style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+            <div class="selection-toggles">
+              <label style="margin-right: 10px; cursor: pointer;">
+                <input type="checkbox" id="selectAllDomains"> 全选
+              </label>
+              <button id="invertSelectionBtn" style="background-color: #6c757d; margin-right: 10px;">反选</button>
+            </div>
+            <div class="batch-actions" style="display: none;" id="batchActionButtons">
+              <span id="selectedCount" style="margin-right: 10px; color: #333;">已选择 0 项</span>
+              <button id="batchDeleteBtn" style="background-color: #dc3545; margin-right: 5px;">批量删除</button>
+              <button id="batchAddToFilterBtn" style="background-color: #ff9800;">批量加入过滤</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 添加流量查询和排序功能 -->
+        <div class="traffic-query-section">
+          <h3>流量查询</h3>
+          <p>使用Serpstat API查询所选域名的流量数据。</p>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+            <button id="queryTrafficBtn" style="background-color: #4285f4;">查询选中域名流量</button>
+            <button id="queryAllTrafficBtn" style="background-color: #34a853;">查询全部域名流量</button>
+            <div>
+              <label for="sortByTraffic" style="margin-right: 5px;">根据流量排序：</label>
+              <select id="sortByTraffic">
+                <option value="none">默认排序</option>
+                <option value="desc">流量从高到低</option>
+                <option value="asc">流量从低到高</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- 添加查询模式选择 -->
+          <div style="margin-bottom: 10px;">
+            <label>
+              <input type="checkbox" id="useAllRegionsTraffic"> 
+              <span title="启用后将查询域名在所有地区的总流量，而不是仅查询单个地区">查询所有地区的总流量</span>
+            </label>
+            <span style="margin-left: 10px; font-size: 12px; color: #666;">
+              (禁用时仅查询单个地区流量，启用时查询所有地区总流量)
+            </span>
+          </div>
+          
+          <div id="trafficQueryStatus" style="display: none; padding: 10px; background-color: #e8f0fe; border-radius: 4px; margin-top: 10px;">
+            <div id="trafficQueryProgress" style="margin-bottom: 5px;">准备查询...</div>
+            <progress id="trafficProgressBar" value="0" max="100" style="width: 100%;"></progress>
+          </div>
+        </div>
+        
+        <ul class="domain-list" id="domainsList">
+          <!-- 域名列表会通过JS动态生成 -->
+        </ul>
+      </div>
+      
+      <div id="noDomainMessage" style="padding: 20px; text-align: center; color: #666;">
+        请先选择一个分类
+      </div>
+    </div>
+    
+    <div class="tab-content" id="filter">
+      <h2>域名过滤清单</h2>
+      <p>加入过滤清单的域名将不会被保存到任何集合中</p>
+      
+      <div class="form-group">
+        <label for="newFilteredDomain">添加域名到过滤清单</label>
+        <div style="display: flex; margin-bottom: 15px;">
+          <input type="text" id="newFilteredDomain" placeholder="输入域名" style="flex: 1; margin-right: 10px;">
+          <button id="addFilteredDomainBtn">添加</button>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="filterFilteredDomains">搜索过滤清单</label>
+        <input type="text" id="filterFilteredDomains" placeholder="输入关键字过滤...">
+      </div>
+      
+      <div class="filtered-stats" style="margin: 10px 0; color: #666;">
+        共 <span id="filteredCount">0</span> 个过滤域名
+      </div>
+      
+      <ul class="domain-list" id="filteredDomainsList">
+        <!-- 过滤域名列表会通过JS动态生成 -->
+        <li style="padding: 10px; text-align: center; color: #999;">
+          加载中...
+        </li>
+      </ul>
+    </div>
+    
+    <div class="tab-content" id="import-export">
+      <h2>导入/导出</h2>
+      <div class="form-group">
+        <label for="exportCollection">选择要导出的集合</label>
+        <select id="exportCollection" style="margin-bottom: 10px;">
+          <option value="">-- 全部域名 --</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="exportFormat">导出格式</label>
+        <select id="exportFormat">
+          <option value="json">JSON</option>
+          <option value="csv">CSV</option>
+        </select>
+        <button id="exportBtn" style="margin-top: 10px;">导出域名</button>
+      </div>
+      
+      <div class="import-export">
+        <h3>导入域名</h3>
+        <div class="form-group">
+          <label for="importFormat">导入格式</label>
+          <select id="importFormat">
+            <option value="json">JSON</option>
+            <option value="csv">CSV</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="importFile">选择文件</label>
+          <input type="file" id="importFile">
+        </div>
+        <button id="importBtn">导入域名</button>
+      </div>
+    </div>
+    
+    <!-- 修改API设置选项卡 -->
+    <div class="tab-content" id="api-settings">
+      <h2>API设置</h2>
+      <p>配置第三方API的访问密钥和相关设置</p>
+      
+      <div style="background-color: #f9f9f9; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+        <h3>Serpstat API</h3>
+        <p>用于查询域名流量数据。您需要在<a href="https://serpstat.com/api/" target="_blank">Serpstat</a>申请API标记。</p>
+        <div class="form-group">
+          <label for="serpstatApiToken">Serpstat API标记</label>
+          <div style="display: flex;">
+            <input type="text" id="serpstatApiToken" placeholder="输入您的Serpstat API标记" style="flex: 1; margin-right: 10px;">
+            <button id="saveSerpstatApiToken" style="white-space: nowrap;">保存标记</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="trafficCacheDuration">流量数据缓存时间</label>
+          <select id="trafficCacheDuration">
+            <option value="3600000">1小时</option>
+            <option value="86400000" selected>1天</option>
+            <option value="604800000">1周</option>
+            <option value="2592000000">1个月</option>
+          </select>
+        </div>
+        <button id="clearTrafficCache" style="background-color: #f44336;">清除流量数据缓存</button>
+      </div>
+    </div>
+  </div>
+  <!-- 首先加载工具库 -->
+  <script src="../lib/domainUtils.js"></script>
+  <script src="../lib/storageUtils.js"></script>
+  <script src="../lib/serpstatUtils.js"></script>
+  <!-- 然后加载选项页面脚本 -->
+  <script src="options.js"></script>
+</body>
+</html> 

@@ -1,0 +1,58 @@
+{
+  "manifest_version": 3,
+  "name": "域名识别与管理工具",
+  "version": "1.0.0",
+  "description": "识别网页上的所有域名，允许用户选择性保存，并为后续的域名分析提供基础",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "tabs",
+    "notifications"
+  ],
+  "background": {
+    "service_worker": "background/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "lib/domainUtils.js",
+        "lib/storageUtils.js",
+        "lib/serpstatUtils.js",
+        "content/domainScanner.js"
+      ],
+      "css": ["content/contentUI.css"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/contentUI.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "options_page": "options/options.html",
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/*", "lib/*"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "https://api.serpstat.com/*"
+  ]
+} 
